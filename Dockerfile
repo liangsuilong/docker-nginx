@@ -12,12 +12,8 @@ Run apt-get -y update && \
     # sed 's/ppa.launchpad.net/launchpad.proxy.ustclug.org/g' -i `grep ppa.launchpad.net -rl /etc/apt/sources.list.d/` && \
     apt-get -y update && \
     apt-get -y install nginx-full && \
+    rm -f /etc/nginx/sites-enabled/default && \
     apt-get clean 
-
-# Add php-fpm as backend
-ARG PHP_UPSTREAM_CONTAINER=php
-ARG PHP_UPSTREAM_PORT=9000
-RUN echo "upstream php { server ${PHP_UPSTREAM_CONTAINER}:${PHP_UPSTREAM_PORT}; }" > /etc/nginx/sites-enabled/php-upstream.conf
 
 ADD entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
