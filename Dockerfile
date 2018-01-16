@@ -13,6 +13,7 @@ Run apt-get -y update && \
     apt-get -y update && \
     apt-get -y install nginx-full && \
     apt-get clean 
+
 ADD entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 VOLUME /etc/nginx/sites-enabled/
