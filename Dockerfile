@@ -4,12 +4,9 @@ MAINTAINER  Suilong Liang <suilong.liang@worktogether.io>
 
 ENV LC_ALL C.UTF-8
 
-#RUN sed 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' -i /etc/apt/sources.list && \
-#    sed 's/security.ubuntu.com/mirrors.ustc.edu.cn/g' -i /etc/apt/sources.list && \
-Run apt-get -y update && \
-    apt-get -y install software-properties-common && \
-    add-apt-repository -y ppa:nginx/stable && \
-    # sed 's/ppa.launchpad.net/launchpad.proxy.ustclug.org/g' -i `grep ppa.launchpad.net -rl /etc/apt/sources.list.d/` && \
+# Manually Add Nginx Stable PPA https://launchpad.net/~nginx/+archive/ubuntu/stable
+RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 8B3981E7A6852F782CC4951600A6F0A3C300EE8C && \
+    echo "deb http://ppa.launchpad.net/nginx/stable/ubuntu xenial main" >> /etc/apt/sources.list && \
     apt-get -y update && \
     apt-get -y install nginx-full && \
     rm -f /etc/nginx/sites-enabled/default && \
